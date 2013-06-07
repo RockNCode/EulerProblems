@@ -1,11 +1,5 @@
 #include <stdio.h>
 
-unsigned int charToDigit( char dig )
-{
-  unsigned int result = dig - 0x30;  
-  return result;
-}
-
 int main()
 {
   unsigned int arr[20][20] = {{8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8},
@@ -29,39 +23,41 @@ int main()
 		     {20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54},
 		     {1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48},
   };
-  unsigned int i,j, product =0 , maxproduct =0;
-  
+  unsigned int i=0,j=0, product =0 , maxproduct =0;
+
   for(i=0;i<20;i++){
     for(j=0;j<20;j++){
-      //if(i < 20 && j < 20){
-	/*check diagonal*/
+      if(i < 17 && j < 17){
+	/*check diagonal right*/
 	product = arr[i][j] * arr[i+1][j+1] * arr[i+2][j+2] * arr[i+3][j+3];
-	//}
-
-	if(product > maxproduct){
-	  maxproduct=product;
-	}
-
-      //if(i < 17){
-	/*check vertical*/
-	product = arr[i][j] * arr[i+1][j] * arr[i+2][j] * arr[i+3][j] ;
-	//}
-
-	if(product > maxproduct){
-	  maxproduct=product;
-	}
-
-	//if(j < 17){
+      }
+      if(product > maxproduct){
+	maxproduct=product;
+      }
+      if( i < 17 && j > 2 ){
+	/*check diagonal left */
+	product = arr[i][j] * arr[i+1][j-1] * arr[i+2][j-2] * arr[i+3][j-3];
+      }
+      if(product > maxproduct){
+	maxproduct=product;
+      }
+      if(i < 20 && j < 17){
 	/*check horizontal*/
 	product = arr[i][j] * arr[i][j+1] * arr[i][j+2] * arr[i][j+3];
-	//}
-	if(product > maxproduct){
-	  maxproduct=product;
-	}
-
+      }
+      if(product > maxproduct){
+	maxproduct=product;
+      }
+      if(j < 20 && i < 17){
+	/*check vertical*/
+	product = arr[i][j] * arr[i+1][j] * arr[i+2][j] * arr[i+3][j] ;
+      }
+      if(product > maxproduct){
+	maxproduct=product;
+      }
     }
   }
-  printf("maxProduct = %u \n",maxproduct);
+  printf("\n maxProduct = %u \n",maxproduct);
 
   return 0;
 }
