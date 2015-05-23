@@ -8,28 +8,39 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
 
 #include <stdio.h>
 
-int fibonacci( int fibo_k2,int fibo_k1 ){
+unsigned long fibonacci( long fibo_k2, long fibo_k1 ){
     return fibo_k2 + fibo_k1;
 
 }
 
-int main(){
-  int evensum = 0 ; 
-  int i = 1 ;
-  int fibonacci_sum = 0;
-  int fibo_k1 =1;
-  int fibo_k2 =1;
-  while(fibonacci_sum < 4000000){
-      fibonacci_sum = fibonacci(fibo_k2,fibo_k1);
-      fibo_k2=fibo_k1;
-      fibo_k1=fibonacci_sum;
-      i++;
-      if(!(fibonacci_sum % 2 )){
-          evensum+=fibonacci_sum;
-      }
-  }
+unsigned long getEvenFibonacciSum(unsigned long limit){
+    unsigned long evensum = 0 ; 
+    unsigned long fibonacci_sum = 0;
+    unsigned long fibo_k1 =1;
+    unsigned long fibo_k2 =1;
 
-  printf("The sum of the even numbers is =%d \n",evensum);
-  
-  return 0;
+    while(fibonacci_sum < limit){
+        if(!(fibonacci_sum & 0x1)){
+            evensum+=fibonacci_sum;
+        }
+        fibonacci_sum = fibonacci(fibo_k2,fibo_k1);
+        fibo_k2=fibo_k1;
+        fibo_k1=fibonacci_sum;
+    }
+
+    return evensum;
+}
+
+int main(){
+    unsigned long evensum = 0 ; 
+    unsigned long limit =4000000;
+    int t,i;
+    scanf("%d",&t);
+    for(i = 0; i < t; i++ ){
+        scanf("%lu",&limit);
+        evensum = getEvenFibonacciSum(limit);
+        printf("%lu\n",evensum);
+    }
+
+    return 0;
 }
