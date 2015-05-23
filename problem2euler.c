@@ -8,12 +8,8 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
 
 #include <stdio.h>
 
-int fibonacci( int last ){
-
-  if( last <=2 )
-    return 1;
-
-  return ( fibonacci( last - 1) + fibonacci(last -2 ) );
+int fibonacci( int fibo_k2,int fibo_k1 ){
+    return fibo_k2 + fibo_k1;
 
 }
 
@@ -21,13 +17,16 @@ int main(){
   int evensum = 0 ; 
   int i = 1 ;
   int fibonacci_sum = 0;
-
+  int fibo_k1 =1;
+  int fibo_k2 =1;
   while(fibonacci_sum < 4000000){
-    fibonacci_sum = fibonacci(i);
-    i++;
-    if(!(fibonacci_sum % 2 )){
-      evensum+=fibonacci_sum;
-    }
+      fibonacci_sum = fibonacci(fibo_k2,fibo_k1);
+      fibo_k2=fibo_k1;
+      fibo_k1=fibonacci_sum;
+      i++;
+      if(!(fibonacci_sum % 2 )){
+          evensum+=fibonacci_sum;
+      }
   }
 
   printf("The sum of the even numbers is =%d \n",evensum);
